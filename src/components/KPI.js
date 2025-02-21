@@ -9,20 +9,22 @@ import {
   Eye
 } from 'lucide-react';
 import BusinessQuestionsModal from './BusinessQuestionsModal';
+import ChartModal from './ChartModal';
 
 const KPI = ({ onSaveQuestions }) => {
   const [isBusinessQuestionsModalOpen, setIsBusinessQuestionsModalOpen] = useState(false);
   const [savedQuestions, setSavedQuestions] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSaveQuestions = (questions) => {
     setSavedQuestions(questions);
-    onSaveQuestions(questions); // This will update the parent state
+    onSaveQuestions(questions);
     setIsBusinessQuestionsModalOpen(false);
   };
 
 
   const sections = [
-    { title: 'KPI Modal', icon: <Goal className="w-5 h-5" />, featured: true },
+    { title: 'KPI Modal', icon: <Goal className="w-5 h-5" />, featured: true, onClick: () => setIsModalOpen(true) },
     {
       title: 'Business Questions',
       icon: <HelpCircle className="w-5 h-5" />,
@@ -84,6 +86,10 @@ const KPI = ({ onSaveQuestions }) => {
         onSave={handleSaveQuestions}
         initialQuestions={savedQuestions}
       />
+
+      {isModalOpen && (
+        <ChartModal isOpen={true} onClose={() => setIsModalOpen(false)} />
+      )}
     </div>
   );
 };

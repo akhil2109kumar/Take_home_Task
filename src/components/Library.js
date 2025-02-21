@@ -1,9 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Settings, X, Search, Clock, Trash2, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { Settings, X, Search, Clock, Trash2, ArrowRight, FileText, Star } from "lucide-react";
 import Featured from "@/components/Featured";
 import KPI from "@/components/KPI";
-import Layouts from "@/components/Layouts";
 import Storyboards from "@/components/Storyboards";
 
 const defaultFeaturedItems = [
@@ -37,49 +36,79 @@ const defaultBusinessQuestions = [
 
 
 const LayoutModal = ({ isOpen, onClose, businessQuestions }) => {
-  const questionsToDisplay = businessQuestions.length > 0
-    ? businessQuestions
-    : defaultBusinessQuestions;
+  const questionsToDisplay = businessQuestions.length > 0 ? businessQuestions : defaultBusinessQuestions;
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div
-        className="absolute inset-0 bg-black bg-opacity-50"
-        onClick={onClose}
-      />
-      <div className="relative bg-white rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold">INTES Layout</h2>
-            <button
-              onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              <X size={20} />
-            </button>
-          </div>
-        </div>
-        <div className="p-6">
-          <div className="space-y-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="relative bg-white rounded-xl shadow-lg max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div className="p-6 border-b flex items-center justify-between bg-gray-50">
+          <div className="flex items-center gap-2">
+            <FileText size={28} className="text-gray-800" />
             <div>
-              <h3 className="font-semibold text-lg mb-4">Business Questions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {questionsToDisplay.map((q, index) => (
-                  <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-medium">{q.question}</h4>
-                    <p className="text-sm text-gray-500">{q.description}</p>
-                  </div>
-                ))}
-              </div>
+              <h2 className="text-2xl font-semibold text-gray-900">INTES <span className="text-sm text-gray-500">Layout</span></h2>
+              <p className="text-sm text-gray-500">Descriptive name of the layout</p>
             </div>
           </div>
+          <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
+            <X size={24} />
+          </button>
+        </div>
+
+        <div className="p-6 text-gray-700">
+          <p>
+            These options are already baked in with this model. Shoot me an email, clear blue water,
+            but we need distributors to evangelize the new fire to local markets.
+          </p>
+          <div className="flex gap-2 mt-3">
+            <span className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md">#ecomms</span>
+            <span className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md">#coverage</span>
+            <span className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md">#stakeholders</span>
+          </div>
+
+          <div className="grid grid-cols-4 gap-4 mt-6 text-center">
+            <div>
+              <p className="text-xl font-semibold">2485</p>
+              <p className="text-sm text-gray-500">Used</p>
+            </div>
+            <div>
+              <p className="text-xl font-semibold">Universal</p>
+              <p className="text-sm text-gray-500">Type</p>
+            </div>
+            <div>
+              <p className="text-xl font-semibold">6</p>
+              <p className="text-sm text-gray-500">Pages No.</p>
+            </div>
+            <div>
+              <p className="text-xl font-semibold">07/23/2024</p>
+              <p className="text-sm text-gray-500">Last Updated</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6 border-t">
+          <h3 className="text-lg font-semibold text-gray-900">Business Questions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            {questionsToDisplay.map((q, index) => (
+              <div key={index} className="bg-gray-100 p-4 rounded-lg border border-gray-200">
+                <h4 className="font-medium text-gray-900">{`Question ${index + 1}`}</h4>
+                <p className="text-sm text-gray-600">{q.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-6 border-t flex justify-between items-center bg-gray-50">
+          <button className="text-gray-600 hover:text-gray-800 flex items-center gap-2">
+            <Star size={18} /> Favorite item
+          </button>
         </div>
       </div>
     </div>
   );
 };
+
 
 export default function Library() {
   const [activeTab, setActiveTab] = useState("Featured");
@@ -152,7 +181,7 @@ export default function Library() {
       />
     ),
     KPI: <KPI onSaveQuestions={handleSaveBusinessQuestions} />,
-    Layouts: <Layouts />,
+    Layouts: " ",
     Storyboards: <Storyboards />
   };
 
